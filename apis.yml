@@ -5,8 +5,8 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Testing
   - Load Testing
+  - Testing
 url: >-
   https://raw.githubusercontent.com/api-evangelist/artillery/refs/heads/main/apis.yml
 created: '2026-03-25'
@@ -19,8 +19,8 @@ apis:
       Artillery is an open source load testing and performance testing platform for APIs, microservices, and web applications with support for HTTP, WebSocket, and Socket.IO.
     humanURL: https://www.artillery.io
     tags:
-      - Testing
       - Load Testing
+      - Testing
     properties:
       - type: Documentation
         url: https://www.artillery.io/docs
