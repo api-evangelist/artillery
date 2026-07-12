@@ -49,6 +49,10 @@ apis:
   - url: graphql/artillery-graphql.md
     type: GraphQL
 common:
+- type: DomainSecurity
+  url: security/artillery-domain-security.yml
+- url: https://www.artillery.io/blog
+  type: Blog
 - type: LinkedIn
   url: https://www.linkedin.com/company/artillery-io
 - type: Portal
