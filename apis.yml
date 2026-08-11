@@ -61,6 +61,19 @@ apis:
   - url: graphql/artillery-graphql.md
     type: GraphQL
 common:
+- type: IssueTracker
+  url: https://github.com/artilleryio/artillery/issues
+- type: Releases
+  url: https://github.com/artilleryio/artillery/releases
+- type: SecurityPolicy
+  url: https://github.com/artilleryio/artillery/blob/main/SECURITY.md
+- type: CodeOfConduct
+  url: https://github.com/artilleryio/artillery/blob/main/CODE_OF_CONDUCT.md
+- type: ContributionGuide
+  url: https://github.com/artilleryio/artillery/blob/main/CONTRIBUTING.md
+- type: License
+  name: MPL-2.0
+  url: https://github.com/artilleryio/artillery/blob/main/LICENSE
 - type: DomainSecurity
   url: security/artillery-domain-security.yml
 - url: https://www.artillery.io/blog
