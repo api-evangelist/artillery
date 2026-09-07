@@ -1,0 +1,139 @@
+generated: '2026-09-07'
+method: searched
+source: >-
+  https://www.artillery.io/docs/reference/stash, https://www.artillery.io/docs/reference/cli/run,
+  https://www.artillery.io/pricing, plus live anonymous probes of https://app.artillery.io/api
+scope_note: >-
+  Artillery's PRIMARY agent-facing surface is a CLI, not a REST API. The Artillery Cloud REST
+  API at https://app.artillery.io/api exists but is undocumented and returns 401 to every
+  anonymous request, so the runtime semantics below are recorded only where the provider states
+  them or where a live probe demonstrated them. Nothing is inferred from a spec — there is none.
+authentication:
+  style: api-key
+  key_prefix: a9_
+  transport:
+  - artillery run --record --key <key>
+  - ARTILLERY_CLOUD_API_KEY environment variable
+  api_transport: undocumented bearer/session token on app.artillery.io/api
+  see: authentication/artillery-authentication.yml
+idempotency:
+  supported: false
+  coverage: none
+  header: null
+  scope: []
+  retention: null
+  note: >-
+    No idempotency key, no replay-protection contract, and no documented retry semantics on any
+    Artillery surface. The CLI's own operation (recording a test run) creates a new report per
+    run by design; re-running a test does not deduplicate. Recorded as `none` rather than `na`
+    because Artillery Cloud does have a mutating surface (creating and deleting reports,
+    force-stopping runs, Stash writes) — it just carries no replay protection.
+pagination:
+  style: unknown
+  params: []
+  response_fields: []
+  note: The Cloud API is undocumented and auth-gated; pagination could not be observed anonymously.
+versioning:
+  style: package-semver
+  current: 2.0.34
+  api_versioning: none published
+  see: lifecycle/artillery-lifecycle.yml
+error_envelope:
+  format: bespoke json
+  media_type: application/json
+  shape: '{"error": {"data": {"message": <string>, "code": <int>, "type": <string>}}}'
+  observed_example: '{"error":{"data":{"message":"Missing auth token","code":401,"type":"ServerError"}}}'
+  observed_at: https://app.artillery.io/api/openapi.json
+  observed_status: 401
+  rfc9457: false
+  note: >-
+    This envelope was OBSERVED on a live anonymous probe on 2026-09-07, not read from
+    documentation. It is the only publicly observable response shape of the Artillery Cloud API.
+rate_limit_signaling:
+  headers_observed: []
+  status_on_exhaustion: null
+  note: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After headers were returned on the anonymous 401.
+    Artillery publishes plan-level quotas, not HTTP rate limits. See rate-limits/.
+  see: rate-limits/artillery-rate-limits.yml
+request_tracing:
+  request_id_header: null
+  outbound: >-
+    Artillery ADDS W3C Trace Context `traceparent` headers to the requests it generates against
+    a system under test (config.http.distributedTracing, CLI 2.0.31+). This is outbound
+    generated-traffic behaviour, not a tracing convention of Artillery's own API.
+  docs: https://www.artillery.io/docs/observability/opentelemetry
+metadata:
+  supported: true
+  mechanism: >-
+    Test runs carry a --name used to group runs in the Artillery Cloud dashboard, and
+    --aws-tags (CLI 2.0.34+) applies custom tags to the AWS resources a distributed run creates.
+  docs: https://www.artillery.io/docs/reference/cli/run
+reversibility:
+  grade: documented
+  applies_to: artillery-cloud
+  note: >-
+    Artillery Cloud has real write surfaces (recording a test report, running a distributed test
+    that provisions AWS/Azure resources, writing to Stash) and publishes reversal paths for some
+    of them, but states a bounded window for NONE of them. No window is asserted here.
+  write_surfaces:
+  - surface: test run in progress
+    reversal: Force early stop
+    operation_id: null
+    window: null
+    window_stated: false
+    evidence: >-
+      "Force early stop" is listed as a plan feature on https://www.artillery.io/pricing
+      (available on Team and Business). The pricing FAQ confirms early-stopped runs still count
+      against the test-report quota.
+  - surface: recorded test report
+    reversal: delete report
+    operation_id: null
+    window: null
+    window_stated: false
+    evidence: >-
+      The pricing FAQ states the test-volume limit "includes reports from tests that are stopped
+      early and reports that are deleted" — deletion exists and is NOT reversible for quota
+      purposes.
+  - surface: Stash key/value writes
+    reversal: delete key / set expiry
+    operation_id: null
+    window: null
+    window_stated: false
+    evidence: >-
+      https://www.artillery.io/docs/reference/stash documents artillery.stash delete and
+      artillery.stash.expire(key, seconds) — the caller sets the TTL, the provider states none.
+  - surface: distributed run resources (AWS Fargate)
+    reversal: automatic self-termination
+    operation_id: null
+    window: 180 seconds
+    window_stated: true
+    evidence: >-
+      Changelog CLI 2.0.31 (2026-04-24): Fargate worker tasks self-terminate if the CLI
+      disappears for more than 180 seconds. This is the ONE bounded window Artillery publishes,
+      and it is a cleanup guarantee rather than a user-invoked undo.
+  irreversible:
+  - surface: data retention expiry
+    note: >-
+      Reports and trace recordings outside the plan's retention period (1 / 6 / 18 months) can
+      no longer be viewed or queried. Stated on the pricing page; not reversible.
+dry_run_mode:
+  supported: true
+  note: >-
+    The Artillery CLI supports validating a test script without executing load, and the
+    third-party-facing `artillery quick` / `artillery ping` commands send a single request rather
+    than a load profile. This is CLI behaviour, not an API dry-run parameter.
+  docs: https://www.artillery.io/docs/reference/cli
+cross_links:
+  authentication: authentication/artillery-authentication.yml
+  lifecycle: lifecycle/artillery-lifecycle.yml
+  rate_limits: rate-limits/artillery-rate-limits.yml
+  plans: plans/artillery-plans-pricing.yml
+  conformance: conformance/artillery-conformance.yml
+x-evidence:
+  fetched: '2026-09-07'
+  probes:
+  - {url: 'https://app.artillery.io/api/openapi.json', status: 401}
+  - {url: 'https://www.artillery.io/docs/reference/stash', status: 200}
+  - {url: 'https://www.artillery.io/pricing', status: 200}
+  - {url: 'https://www.artillery.io/changelog', status: 200}

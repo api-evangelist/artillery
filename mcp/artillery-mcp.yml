@@ -1,0 +1,34 @@
+generated: '2026-09-07'
+method: probed
+status: none
+source: live POST tools/list probes plus a search of npm, the artilleryio GitHub org and the docs
+note: >-
+  Artillery publishes NO first-party MCP server as of this probe. The artilleryio GitHub org
+  (48 repos) contains no MCP repo, npm has no artillery-mcp or @artilleryio/artillery-mcp
+  package, and the provider's own llms.txt (fetched 200 from www.artillery.io/llms.txt) lists
+  no MCP endpoint. A third-party "Artillery MCP Server" exists on the Glama registry authored
+  by an unaffiliated developer (jch1887); it is NOT Artillery's and is deliberately not
+  recorded as a provider surface. Artillery's actual agent posture is Agent Skills, not MCP —
+  see skills/, which holds three skills published verbatim by artilleryio/agent-skills.
+  No candidate tool list is derived here because Artillery publishes no OpenAPI to derive from.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: probed
+probes:
+- url: https://mcp.artillery.io/mcp
+  status: 0
+  result: DNS does not resolve
+- url: https://app.artillery.io/mcp
+  status: 307
+  result: redirect to /login?callbackUrl=%2Fmcp
+- url: https://app.artillery.io/api/mcp
+  status: 401
+  result: '{"error":{"data":{"message":"Missing auth token","code":401,"type":"ServerError"}}} — the app.artillery.io/api catch-all auth wall, not an MCP surface'
+- url: https://www.artillery.io/mcp
+  status: 405
+  result: Method not allowed
+tools: []

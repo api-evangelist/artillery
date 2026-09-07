@@ -1,0 +1,50 @@
+generated: '2026-09-07'
+method: searched
+probe: true
+source: https://www.artillery.io/docs/resources/security
+url: https://www.artillery.io/docs/resources/security
+trust_center: false
+note: >-
+  Artillery runs NO trust center. trust.artillery.io does not resolve and security.artillery.io
+  was not found; probe-security-programs.py returned trust=none. What Artillery does publish is
+  a "Security Overview" documentation page describing its own posture, plus a Security Policy
+  under Legal & Compliance. It names NO third-party certification — no SOC 2, ISO 27001, PCI
+  DSS, HIPAA or FedRAMP claim appears anywhere on the site. This file records the posture page
+  and the ABSENCE of certifications; no Compliance pointer is emitted, because there is no
+  published compliance program to point at.
+certifications: []
+benchmarks_self_asserted:
+- name: AWS Foundational Security Best Practices
+  version: 1.0.0
+  method: continuous verification via AWS Audit Manager and Security Hub
+- name: CIS AWS Foundations Benchmark
+  version: 1.2.0
+  method: continuous verification via AWS Audit Manager and Security Hub
+posture_claims:
+- MFA and single sign-on enforced across all services
+- CI/CD with protected main/deployment branches
+- static security analysis and dependency scanning with automated alerting
+- centralized logging for auditing and alerting
+- infrastructure as code, all changes through CI/CD
+- AWS assume-role access with CloudTrail auditing
+- MDM endpoint security on all employee and contractor devices
+- regular third-party pentests of Artillery Cloud
+- encryption at rest for all Artillery Cloud data
+- AWS account, VPC and security group segmentation
+- 'self-hosted CLI by design: Artillery staff have no access to test scripts, targets, credentials or test data'
+data_residency:
+  byoc: true
+  note: >-
+    "Deploy to your own AWS account (BYOC)" is offered on the pricing page for companies whose
+    compliance policies require data to remain in their own cloud; contact sales@artillery.io.
+evidence:
+- source: https://www.artillery.io/docs/resources/security
+  http_status: 200
+  keywords: [supply chain security, security best-practices, pentests, encryption at rest, vendor security]
+- source: https://trust.artillery.io
+  http_status: 0
+  result: DNS does not resolve
+- source: https://www.artillery.io/trust
+  http_status: 404
+x-evidence:
+  fetched: '2026-09-07'

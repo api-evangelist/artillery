@@ -1,0 +1,60 @@
+generated: '2026-09-07'
+method: searched
+source: https://github.com/artilleryio/agent-skills
+note: >-
+  These are Artillery's OWN agent skills, published by the artilleryio GitHub org at
+  github.com/artilleryio/agent-skills ("Artillery's official collection of agent skills").
+  Every file below is saved VERBATIM from that repository — nothing in skills/ was authored
+  by API Evangelist. Artillery states the skills follow the Agent Skills format
+  (agentskills.io) and are linted/evaluated with Tessl. Install form published by the
+  provider: `npx skills add artilleryio/agent-skills --skill <name>`.
+repository: https://github.com/artilleryio/agent-skills
+license_note: see the upstream repository for licensing
+skills:
+- file: artillery-setup-artillery-cli-for-load-testing.md
+  name: setup-artillery-cli-for-load-testing
+  title: Set up Artillery CLI for load testing
+  description: >-
+    Set up Artillery load testing for any project. Detects package manager and project type,
+    creates a TypeScript test script (HTTP or Playwright browser), configures Artillery Cloud,
+    and provides the run command.
+  api: null
+  operations: []
+  surface: cli
+  commands:
+  - artillery run
+  source: https://github.com/artilleryio/agent-skills/blob/main/skills/setup-artillery-cli-for-load-testing/SKILL.md
+  install: npx skills add artilleryio/agent-skills --skill setup-artillery-cli-for-load-testing
+  method: searched
+- file: artillery-setup-artillery-playwright-reporter.md
+  name: setup-artillery-playwright-reporter
+  title: Add Artillery Cloud reporting to Playwright E2E tests
+  description: >-
+    Set up the Artillery Playwright reporter in an existing Playwright E2E test suite.
+    Installs @artilleryio/playwright-reporter, configures it in playwright.config.ts,
+    sets up the Artillery Cloud API key, and runs the suite to verify reporting works.
+  api: null
+  operations: []
+  surface: cloud-reporting
+  packages:
+  - '@artilleryio/playwright-reporter'
+  source: https://github.com/artilleryio/agent-skills/blob/main/skills/setup-artillery-playwright-reporter/SKILL.md
+  install: npx skills add artilleryio/agent-skills --skill setup-artillery-playwright-reporter
+  method: searched
+- file: artillery-convert-artillery-yaml-to-ts.md
+  name: convert-artillery-yaml-to-ts
+  title: Convert Artillery YAML scripts to TypeScript/JS
+  description: >-
+    Convert existing Artillery YAML scripts to TypeScript or ESM JavaScript, auto-detecting
+    the best output format, resolving YAML anchors by inlining, type-annotating exports,
+    and verifying the output via tsc or node --check.
+  api: null
+  operations: []
+  surface: cli
+  source: https://github.com/artilleryio/agent-skills/blob/main/skills/convert-artillery-yaml-to-ts/SKILL.md
+  install: npx skills add artilleryio/agent-skills --skill convert-artillery-yaml-to-ts
+  method: searched
+x-evidence:
+  fetched: '2026-09-07'
+  url: https://api.github.com/repos/artilleryio/agent-skills/git/trees/HEAD?recursive=1
+  http_status: 200

@@ -1,0 +1,136 @@
+generated: '2026-09-07'
+method: probed
+source: live GET probes of the named /.well-known/ path list on every host this record knows
+hit_count: 0
+note: >-
+  Artillery serves NO /.well-known/ discovery document on either host. www.artillery.io returns a
+  real 404 (Next.js error page) for every named path. app.artillery.io is a catch-all
+  single-page login app that answers HTTP 200 with the same ~35KB HTML login shell for EVERY
+  path — including the negative control /.well-known/artillery-negative-control-7f3ab91c.json,
+  which cannot exist. Every 200 on app.artillery.io is therefore a soft-404, NOT a document, and
+  no WellKnown / SecurityTxt pointer is emitted from this file. Artillery does publish a real
+  security policy, but at https://www.artillery.io/terms/security (see
+  security/artillery-vulnerability-disclosure.yml), not at /.well-known/security.txt.
+hosts:
+- host: https://www.artillery.io
+  soft_404_control:
+    path: /.well-known/artillery-negative-control-7f3ab91c.json
+    status: 404
+    result: passed
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog.json
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/ucp.json
+    status: 404
+    file: null
+  - path: /.well-known/acp.json
+    status: 404
+    file: null
+  - path: /.well-known/aauth-resource.json
+    status: 404
+    file: null
+  - path: /.well-known/apis.json
+    status: 404
+    file: null
+  - path: /apis.json
+    status: 404
+    file: null
+  - path: /apis.yml
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+- host: https://app.artillery.io
+  soft_404_control:
+    path: /.well-known/artillery-negative-control-7f3ab91c.json
+    status: 200
+    bytes: 35666
+    content_type: text/html
+    result: failed
+    note: >-
+      Catch-all SPA. Every 200 recorded below returned the same text/html login shell of
+      ~35.6KB and is discarded as a soft-404; none is a document.
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    soft_404: true
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 200
+    soft_404: true
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    soft_404: true
+    file: null
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    soft_404: true
+    file: null
+  - path: /.well-known/api-catalog
+    status: 200
+    soft_404: true
+    file: null
+  - path: /.well-known/api-catalog.json
+    status: 200
+    soft_404: true
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    soft_404: true
+    file: null
+  - path: /.well-known/ucp.json
+    status: 200
+    soft_404: true
+    file: null
+  - path: /.well-known/acp.json
+    status: 200
+    soft_404: true
+    file: null
+  - path: /.well-known/aauth-resource.json
+    status: 200
+    soft_404: true
+    file: null
+  - path: /.well-known/apis.json
+    status: 200
+    soft_404: true
+    file: null
+  - path: /apis.json
+    status: 200
+    soft_404: true
+    file: null
+  - path: /apis.yml
+    status: 200
+    soft_404: true
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 200
+    soft_404: true
+    file: null
+  - path: /.well-known/agent.json
+    status: 200
+    soft_404: true
+    file: null

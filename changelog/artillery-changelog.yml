@@ -1,0 +1,127 @@
+generated: '2026-09-07'
+method: searched
+source: https://www.artillery.io/changelog
+docs: https://www.artillery.io/changelog
+release_notes: https://github.com/artilleryio/artillery/releases
+scheme: semver
+current_version: 2.0.34
+current_released: '2026-08-14'
+surfaces:
+- CLI
+- Dashboard
+- VS Code Extension
+note: >-
+  Artillery publishes a dated, filterable changelog on its own site covering three surfaces, and
+  each CLI entry links to the matching GitHub release tag. The changelog spans 2024-2026 in a
+  single page; the recent window is captured below. NOTE: the apis.yml pointer previously aimed
+  at https://github.com/artilleryio/artillery/blob/main/CHANGELOG.md, which returns 404 — that
+  file does not exist in the repository. It has been repointed here.
+entries:
+- version: 2.0.34
+  date: '2026-08-14'
+  surface: CLI
+  breaking: false
+  additions:
+  - '`artillery ping` command for quick HTTP endpoint testing with a DNS/TCP/TLS/TTFB/download breakdown, --expect expectations, JMESPath and Cheerio body queries, HTTP/2 by default'
+  - Full ESM support in processors, plugins, engines and custom reporters, including top-level await
+  - TypeScript type definitions modelling the full test script now ship with the `artillery` package
+  - '`--aws-tags` flag to tag AWS resources created for a distributed run'
+  - Playwright upgraded to v1.62.1
+  fixes:
+  - relative imports in processor code no longer fail to run
+  - '$rewriteMetricName no longer silently ignored for ES module processors'
+  - fake-data plugin bundled into the worker image instead of downloaded at test startup
+  highlights: npm releases now published via npm trusted publishing (OIDC) with provenance attestations
+  release: https://github.com/artilleryio/artillery/releases/tag/artillery-2.0.34
+- version: null
+  date: '2026-07-29'
+  surface: Dashboard
+  breaking: false
+  additions:
+  - Self-service SSO and SCIM onboarding for enterprise organizations from Settings -> SSO
+  highlights: enterprise identity federation became self-service rather than sales-mediated
+- version: 2.0.33
+  date: '2026-06-16'
+  surface: CLI
+  breaking: false
+  additions:
+  - Playwright upgraded to v1.61.0
+  - Falso replaced with Faker.js in the fake-data plugin
+  release: https://github.com/artilleryio/artillery/releases/tag/artillery-2.0.33
+- version: 2.0.32
+  date: '2026-05-19'
+  surface: CLI
+  breaking: false
+  additions:
+  - Playwright upgraded to v1.60.0
+  fixes:
+  - http.timeout no longer silently capped at 8 seconds for slow origins
+  - MODULE_NOT_FOUND startup failures for @smithy/node-config-provider and @smithy/config-resolver
+  - Fargate runs no longer silently start with fewer VUs after undetected worker startup errors
+  - trace upload errors now surfaced in CLI output
+  release: https://github.com/artilleryio/artillery/releases/tag/artillery-2.0.32
+- version: 2.0.31
+  date: '2026-04-24'
+  surface: CLI
+  breaking: true
+  breaking_note: >-
+    HTTP engine upgraded from Got v11 to Got v14.6.6 — potentially breaking for tests whose
+    hooks access or modify Got internals.
+  additions:
+  - W3C Trace Context propagation on outgoing HTTP requests via config.http.distributedTracing (traceparent header)
+  - Fargate CLI heartbeat — worker tasks self-terminate if the CLI disappears for more than 180 seconds
+  - notifyOnFailureOnly option for the Slack plugin
+  - Playwright upgraded to v1.59.1
+  fixes:
+  - AWS Lambda no longer silently skips npm dependency installation for tests with external modules
+  - Azure ACI test artifacts in Blob Storage now retained by default
+  release: https://github.com/artilleryio/artillery/releases/tag/artillery-2.0.31
+- version: null
+  date: '2026-04-17'
+  surface: Dashboard
+  breaking: false
+  additions: [Accessibility improvements]
+- version: null
+  date: '2026-04-08'
+  surface: Dashboard
+  breaking: false
+  additions: [Stash viewer]
+- version: null
+  date: '2026-04-03'
+  surface: Dashboard
+  breaking: false
+  additions: [New sidebar and breadcrumbs]
+- version: null
+  date: '2026-04-01'
+  surface: Dashboard
+  breaking: false
+  additions: [Performance Trends on individual test runs]
+- version: 2.0.30
+  date: '2026-02-05'
+  surface: CLI
+  breaking: false
+- version: 2.0.29
+  date: '2026-01-29'
+  surface: CLI
+  breaking: false
+- version: 2.0.28
+  date: '2026-01-23'
+  surface: CLI
+  breaking: false
+- version: null
+  date: '2025-12-08'
+  surface: Dashboard
+  breaking: false
+  additions: [Load test report improvements]
+- version: 2.0.27
+  date: '2025-11-18'
+  surface: CLI
+  breaking: false
+cadence:
+  cli_releases_2026: 6 (2.0.28 through 2.0.34, through 2026-08-14)
+  dashboard_entries_2026: 5
+  observed_span: 2024-03 through 2026-08 on a single page
+x-evidence:
+  fetched: '2026-09-07'
+  url: https://www.artillery.io/changelog
+  http_status: 200

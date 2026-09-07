@@ -1,0 +1,220 @@
+generated: '2026-09-07'
+method: searched
+source: >-
+  registry.npmjs.org metadata endpoints, github.com/artilleryio (org repo listing),
+  https://www.artillery.io/docs/get-started/get-artillery
+note: >-
+  Artillery ships no conventional REST client SDK, because the Artillery Cloud REST API at
+  https://app.artillery.io/api is not publicly documented (every path returns
+  {"error":{"data":{"message":"Missing auth token","code":401}}} anonymously). The first-party
+  client for Artillery Cloud is the `artillery` CLI itself (it records runs to Cloud with
+  --record/--key) and the @artilleryio/playwright-reporter library, which posts Playwright E2E
+  results to Artillery Cloud from inside a Playwright test run. Everything else below is a
+  first-party engine or plugin published from the artilleryio monorepo. Versions and dates are
+  read from registry.npmjs.org on the generated date.
+registries_probed:
+- npm
+- pypi
+- rubygems
+- crates.io
+- packagist
+- nuget
+- maven-central
+- pkg.go.dev
+registries_with_results:
+- npm
+packages:
+- language: javascript
+  registry: npm
+  name: artillery
+  url: https://www.npmjs.com/package/artillery
+  install: npm install -g artillery@latest
+  official: true
+  role: cli
+  version: 2.0.34
+  published: '2026-08-14'
+  repository: https://github.com/artilleryio/artillery
+  description: Cloud-scale load testing CLI; the first-party client that records test runs to Artillery Cloud.
+- language: javascript
+  registry: npm
+  name: '@artilleryio/playwright-reporter'
+  url: https://www.npmjs.com/package/@artilleryio/playwright-reporter
+  install: npm install --save-dev @artilleryio/playwright-reporter
+  official: true
+  role: client-library
+  version: 1.1.3
+  published: '2025-02-26'
+  description: >-
+    Playwright reporter for Artillery Cloud — the first-party library that sends E2E test
+    results to the Artillery Cloud API using an Artillery Cloud API key.
+  note: >-
+    Currency signal: last published 2025-02-26, well behind the CLI (2026-08-14) and behind the
+    July 2026 Cloud dashboard releases it reports into.
+- language: javascript
+  registry: npm
+  name: '@artilleryio/types'
+  url: https://www.npmjs.com/package/@artilleryio/types
+  install: npm install --save-dev @artilleryio/types
+  official: true
+  role: types
+  version: 0.11.0
+  published: '2024-05-14'
+  note: >-
+    Superseded in practice: the changelog for CLI v2.0.34 (2026-08-14) says TypeScript type
+    definitions now ship inside the `artillery` package itself.
+- language: javascript
+  registry: npm
+  name: artillery-engine-playwright
+  url: https://www.npmjs.com/package/artillery-engine-playwright
+  install: bundled with artillery
+  official: true
+  role: engine
+  version: 1.30.0
+  published: '2026-06-16'
+  note: Package page states it is bundled into Artillery itself and should not be installed separately.
+- language: javascript
+  registry: npm
+  name: artillery-plugin-expect
+  url: https://www.npmjs.com/package/artillery-plugin-expect
+  install: bundled with artillery
+  official: true
+  role: plugin
+  version: 2.27.0
+  published: '2026-06-16'
+- language: javascript
+  registry: npm
+  name: artillery-plugin-ensure
+  url: https://www.npmjs.com/package/artillery-plugin-ensure
+  install: bundled with artillery
+  official: true
+  role: plugin
+  version: 1.27.0
+  published: '2026-06-16'
+- language: javascript
+  registry: npm
+  name: artillery-plugin-apdex
+  url: https://www.npmjs.com/package/artillery-plugin-apdex
+  install: bundled with artillery
+  official: true
+  role: plugin
+  version: 1.24.0
+  published: '2026-06-16'
+- language: javascript
+  registry: npm
+  name: artillery-plugin-metrics-by-endpoint
+  url: https://www.npmjs.com/package/artillery-plugin-metrics-by-endpoint
+  install: bundled with artillery
+  official: true
+  role: plugin
+  version: 1.27.0
+  published: '2026-06-16'
+- language: javascript
+  registry: npm
+  name: artillery-plugin-publish-metrics
+  url: https://www.npmjs.com/package/artillery-plugin-publish-metrics
+  install: bundled with artillery
+  official: true
+  role: plugin
+  version: 2.38.0
+  published: '2026-06-16'
+  description: Publish Artillery metrics to Datadog, New Relic, Splunk, Prometheus, OpenTelemetry and other backends.
+- language: javascript
+  registry: npm
+  name: artillery-plugin-slack
+  url: https://www.npmjs.com/package/artillery-plugin-slack
+  install: bundled with artillery
+  official: true
+  role: plugin
+  version: 1.22.0
+  published: '2026-06-16'
+- language: javascript
+  registry: npm
+  name: artillery-plugin-fake-data
+  url: https://www.npmjs.com/package/artillery-plugin-fake-data
+  install: bundled with artillery
+  official: true
+  role: plugin
+  version: 1.24.0
+  published: '2026-06-16'
+- language: javascript
+  registry: npm
+  name: artillery-plugin-memory-inspector
+  url: https://www.npmjs.com/package/artillery-plugin-memory-inspector
+  install: npm install artillery-plugin-memory-inspector
+  official: true
+  role: plugin
+  version: 1.1.1
+  published: '2024-03-04'
+- language: javascript
+  registry: npm
+  name: artillery-engine-kinesis
+  url: https://www.npmjs.com/package/artillery-engine-kinesis
+  install: npm install artillery-engine-kinesis
+  official: true
+  role: engine
+  version: 1.1.1
+  published: '2022-06-20'
+  note: Experimental AWS Kinesis engine; last published 2022 — stale relative to the 2.x CLI line.
+- language: javascript
+  registry: npm
+  name: artillery-engine-posthog
+  url: https://www.npmjs.com/package/artillery-engine-posthog
+  install: npm install artillery-engine-posthog
+  official: true
+  role: engine
+  version: 0.0.1
+  published: '2023-01-30'
+- language: javascript
+  registry: npm
+  name: artillery-plugin-hls
+  url: https://www.npmjs.com/package/artillery-plugin-hls
+  install: npm install artillery-plugin-hls
+  official: true
+  role: plugin
+  version: 0.0.3
+  published: '2018-10-31'
+  note: Abandonment signal — HLS extension is still documented in llms.txt but the package has not shipped since 2018.
+- language: javascript
+  registry: npm
+  name: artillery-plugin-fuzzer
+  url: https://www.npmjs.com/package/artillery-plugin-fuzzer
+  install: npm install artillery-plugin-fuzzer
+  official: true
+  role: plugin
+  version: 1.0.1
+  published: '2017-05-06'
+  note: Abandonment signal — HTTP fuzz testing is still documented in llms.txt but the package has not shipped since 2017.
+not_found:
+- name: '@artilleryio/artillery'
+  registry: npm
+  result: 404 Not found
+- name: artillery-engine-sse
+  registry: npm
+  result: 404 Not found (source lives at github.com/artilleryio/artillery-engine-sse, unpublished)
+- name: artillery-mcp
+  registry: npm
+  result: 404 Not found
+- name: '@artilleryio/artillery-mcp'
+  registry: npm
+  result: 404 Not found
+other_distribution:
+- kind: docker
+  name: artilleryio/artillery
+  url: https://www.artillery.io/docs/docker
+  official: true
+  version: null
+  note: >-
+    Official Docker images are documented at /docs/docker. Registry metadata was not queried in
+    this pass, so version is recorded null rather than guessed.
+- kind: github-action
+  name: artilleryio/action-cli
+  url: https://github.com/artilleryio/action-cli
+  official: true
+  version: null
+  note: Official GitHub Action for running Artillery in CI; version pinned by the consumer's workflow file.
+- kind: vscode-extension
+  name: vscode-artillery
+  url: https://github.com/artilleryio/vscode-artillery
+  official: true
+  version: null
+  note: First-party VS Code extension; Marketplace metadata not queried in this pass.

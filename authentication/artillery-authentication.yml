@@ -1,0 +1,65 @@
+generated: '2026-09-07'
+method: searched
+source: >-
+  https://www.artillery.io/docs/reference/stash, https://www.artillery.io/docs/reference/cli/run,
+  https://www.artillery.io/pricing, https://www.artillery.io/changelog, plus live anonymous
+  probes of https://app.artillery.io/api
+docs: https://www.artillery.io/docs/reference/cli/run
+note: >-
+  DERIVED FROM DOCS AND LIVE PROBES, NOT FROM A SPEC — Artillery publishes no OpenAPI, so there
+  are no securitySchemes to aggregate. What is recorded below is what the provider documents
+  and what the live endpoint actually answers.
+summary:
+  types: [apiKey]
+  api_key_in: [cli-flag, environment-variable, header]
+  oauth2_flows: []
+  federation: [oidc, saml]
+  provisioning: [scim]
+schemes:
+- name: ArtilleryCloudApiKey
+  type: apiKey
+  in: cli-flag
+  parameter: --key
+  alt_parameter: ARTILLERY_CLOUD_API_KEY
+  key_prefix: a9_
+  key_prefix_evidence: >-
+    https://www.artillery.io/docs/reference/stash — published example
+    "ARTILLERY_CLOUD_API_KEY=a9_yourApiKey node seed-data.ts"
+  obtained_from: Artillery Cloud dashboard settings at https://app.artillery.io
+  used_by:
+  - artillery run --record --key <key>  (record a test run to Artillery Cloud)
+  - Stash API (persistent key-value store; client auto-configured from the same key)
+  - '@artilleryio/playwright-reporter (Playwright E2E reporting into Artillery Cloud)'
+  sources: [docs]
+- name: ArtilleryCloudSessionToken
+  type: http
+  scheme: bearer
+  in: header
+  observed: true
+  observation: >-
+    Anonymous requests to any path under https://app.artillery.io/api return HTTP 401 with the
+    body {"error":{"data":{"message":"Missing auth token","code":401,"type":"ServerError"}}}.
+    The token name and format are not published; the Cloud API is an undocumented,
+    authenticated-only surface.
+  sources: [live probe 2026-09-07]
+federation:
+- name: Enterprise SSO
+  protocols: [oidc, saml]
+  provisioning: scim
+  self_service: true
+  evidence: >-
+    Pricing page lists "Enterprise SSO (OIDC & SAML), audit logs, custom MSA, and support SLAs"
+    as an add-on from $1199/month; the changelog entry of 2026-07-29 announces self-service SSO
+    and SCIM onboarding from Settings -> SSO in Artillery Cloud.
+  docs: https://www.artillery.io/pricing
+public_surface_note: >-
+  There is no anonymous or public-read surface on the Artillery Cloud API. Everything an agent
+  or integrator can do without credentials is documentation: /llms.txt, the .md docs mirror, the
+  public GitHub org, and the npm packages.
+x-evidence:
+  fetched: '2026-09-07'
+  probes:
+  - {url: 'https://app.artillery.io/api/openapi.json', status: 401}
+  - {url: 'https://app.artillery.io/api/graphql', status: 401}
+  - {url: 'https://www.artillery.io/docs/reference/stash', status: 200}
+  - {url: 'https://www.artillery.io/pricing', status: 200}

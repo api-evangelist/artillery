@@ -1,0 +1,111 @@
+generated: '2026-09-07'
+method: searched
+source: >-
+  https://www.artillery.io/docs/reference/cli, https://www.artillery.io/docs/get-started/get-artillery,
+  https://www.artillery.io/docs/reference/cli/run, https://www.artillery.io/changelog
+docs: https://www.artillery.io/docs/reference/cli
+name: artillery
+note: >-
+  Artillery's CLI is not an accessory to an API — it IS the product. The Artillery Cloud REST
+  API is undocumented and auth-gated; the CLI is the documented, first-party, machine-usable
+  interface, and it is what Artillery's own published agent skills drive.
+install:
+- method: npm-global
+  command: npm install -g artillery@latest
+  recommended: true
+- method: npx
+  command: npx artillery@latest
+- method: npm-canary
+  command: npm install -g artillery@canary
+  note: A canary release is published on every commit to the GitHub repository.
+- method: docker
+  reference: https://www.artillery.io/docs/docker
+  note: Official Docker images; do not install as root inside a container.
+- method: github-action
+  reference: https://github.com/artilleryio/action-cli
+requirements:
+  runtime: Node.js (most recent LTS)
+  platforms: [linux, macos, windows]
+  note: >-
+    On Windows PowerShell the execution policy must be set to RemoteSigned for the artillery.ps1
+    shim to run.
+global_options:
+- flag: --help
+  description: Show help
+- flag: -v
+  description: Display Artillery version
+commands:
+- name: run
+  group: execute
+  description: Run an Artillery test script locally
+  docs: https://www.artillery.io/docs/reference/cli/run
+  key_flags:
+  - {flag: '--output, -o', description: Write a JSON report to a file}
+  - {flag: '--environment, -e', description: Run the test using the specified environment}
+  - {flag: '--config, -c', description: Load the config section from another file (YAML scripts only)}
+  - {flag: '--scenario-name', description: Run only the named scenario (exact match or regex)}
+  - {flag: '--overrides', description: Override values in the test script dynamically}
+  - {flag: '--target, -t', description: Set or override the target URL}
+  - {flag: '--variables, -v', description: Set scenario variables dynamically}
+  - {flag: '--env-file <path>', description: 'Set environment variables from a .env file (--dotenv is deprecated)'}
+  - {flag: '--insecure, -k', description: Turn off TLS verification (not for production)}
+  - {flag: '--quiet, -q', description: Run in quiet mode}
+  - {flag: '--name <value>', description: Name the test run for grouping in the Artillery Cloud dashboard}
+  - {flag: '--record', description: Record the test run to Artillery Cloud}
+  - {flag: '--key', description: Artillery Cloud API key (or set ARTILLERY_CLOUD_API_KEY)}
+- name: run-lambda
+  group: distributed
+  description: Run a distributed test on AWS Lambda
+  docs: https://www.artillery.io/docs/reference/cli/run-lambda
+- name: run-fargate
+  group: distributed
+  description: Run a distributed test on AWS Fargate
+  docs: https://www.artillery.io/docs/reference/cli/run-fargate
+  key_flags:
+  - {flag: '--aws-tags', description: 'Apply custom tags to AWS resources created for the run (CLI 2.0.34+), e.g. "team:perf,cost-center:1234"'}
+- name: run-aci
+  group: distributed
+  description: Run a distributed test on Azure Container Instances
+  docs: https://www.artillery.io/docs/reference/cli/run-aci
+- name: quick
+  group: probe
+  description: Test a single HTTP endpoint without writing a test script
+  docs: https://www.artillery.io/docs/reference/cli/quick
+- name: ping
+  group: probe
+  description: >-
+    Send a request to a URL and show a performance breakdown (DNS/TCP/TLS/TTFB/download) and
+    response headers; supports --expect expectations, JMESPath and Cheerio body queries, custom
+    headers, basic auth, JSON/form bodies and HTTP/2 or HTTP/1.1
+  added: 2.0.34
+  added_date: '2026-08-14'
+  source: https://www.artillery.io/changelog
+- name: report
+  group: reporting
+  description: Create an HTML report from a JSON test report
+  docs: https://www.artillery.io/docs/reference/cli/report
+- name: version
+  group: meta
+  description: Print the installed Artillery version
+- name: dino
+  group: meta
+  description: Print an ASCII dinosaur; documented as the quickest way to confirm the install works
+key_flows:
+- name: Record a run to Artillery Cloud
+  steps:
+  - artillery run --record --key $ARTILLERY_CLOUD_API_KEY my-script.yaml
+- name: Generate an HTML report
+  steps:
+  - artillery run --output report.json my-script.yaml
+  - artillery report report.json
+- name: Distributed load test on AWS Fargate
+  steps:
+  - artillery run-fargate --count 25 --region us-east-1 my-script.yaml
+  note: worker counts and regions are per-plan; see plans/artillery-plans-pricing.yml
+binary_package: packages/artillery-packages.yml
+x-evidence:
+  fetched: '2026-09-07'
+  probes:
+  - {url: 'https://www.artillery.io/docs/reference/cli', status: 200}
+  - {url: 'https://www.artillery.io/docs/get-started/get-artillery', status: 200}
+  - {url: 'https://www.artillery.io/docs/reference/cli/run', status: 200}

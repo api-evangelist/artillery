@@ -55,19 +55,26 @@ tags_raw:
 - DevOps
 - Node.js
 created: '2026-03-25'
-modified: '2026-04-19'
+modified: '2026-09-07'
 specificationVersion: '0.23'
 apis:
 - aid: artillery:artillery-cloud-api
   name: Artillery Cloud API
   description: >-
-    Artillery Cloud provides a hosted platform for running distributed load
-    tests at scale, storing test results, team collaboration, and integrating
-    with CI/CD pipelines. The Artillery Cloud API enables programmatic
-    triggering of test runs, retrieval of test results, and management of
-    test configurations.
-  humanURL: https://www.artillery.io/docs/reference/cli/run-test
+    Artillery Cloud is the hosted platform behind the open source Artillery CLI: it runs
+    distributed load and Playwright E2E tests at scale across AWS Lambda, AWS Fargate and
+    Azure ACI, stores and retains test reports, provides performance trends, custom charts,
+    workspaces and the Redis-compatible Stash key/value store, and integrates with CI/CD.
+    The HTTP surface at https://app.artillery.io/api is real but UNDOCUMENTED — every
+    anonymous request returns HTTP 401 with the body
+    {"error":{"data":{"message":"Missing auth token","code":401,"type":"ServerError"}}},
+    and Artillery publishes no OpenAPI, GraphQL schema or written reference for it (probed
+    2026-09-07). The documented, first-party way to drive Artillery Cloud programmatically is
+    the artillery CLI with --record and --key, the ARTILLERY_CLOUD_API_KEY environment
+    variable, and the @artilleryio/playwright-reporter library.
+  humanURL: https://www.artillery.io/docs/reference/cli/run
   baseURL: https://app.artillery.io/api
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/artillery.png
   tags:
   - Load Testing
   - Cloud
@@ -75,12 +82,12 @@ apis:
   - Performance
   properties:
   - type: Documentation
-    url: https://www.artillery.io/docs/reference/cli/run-test
+    url: https://www.artillery.io/docs/reference/cli/run
   - type: GettingStarted
     url: https://www.artillery.io/docs/get-started/get-artillery
-  - url: graphql/artillery-graphql.md
-    type: GraphQL
 common:
+- type: Website
+  url: https://www.artillery.io/
 - type: IssueTracker
   url: https://github.com/artilleryio/artillery/issues
 - type: Releases
@@ -93,7 +100,7 @@ common:
   url: https://github.com/artilleryio/artillery/blob/main/CONTRIBUTING.md
 - type: License
   name: MPL-2.0
-  url: https://github.com/artilleryio/artillery/blob/main/LICENSE
+  url: https://github.com/artilleryio/artillery/blob/main/LICENSE.txt
 - type: DomainSecurity
   url: security/artillery-domain-security.yml
 - url: https://www.artillery.io/blog
@@ -112,12 +119,84 @@ common:
 - type: GitHubRepository
   url: https://github.com/artilleryio/artillery
   title: Artillery Source Repository
-- type: ReleaseNotes
-  url: https://github.com/artilleryio/artillery/blob/main/CHANGELOG.md
+- type: ChangeLog
+  url: https://www.artillery.io/changelog
   title: Changelog
 - type: Pricing
   url: https://www.artillery.io/pricing
   title: Pricing
+- type: APIReference
+  url: https://www.artillery.io/docs/reference/cli
+  title: Artillery CLI Reference
+- type: GettingStarted
+  url: https://www.artillery.io/docs/get-started/first-test
+  title: Run Your First Artillery Test
+- type: Support
+  url: https://github.com/artilleryio/artillery/discussions
+  title: GitHub Discussions
+- type: SignUp
+  url: https://app.artillery.io/login
+  title: Sign in to Artillery Cloud
+- type: TermsOfService
+  url: https://www.artillery.io/terms/tos
+  title: Terms of Service
+- type: PrivacyPolicy
+  url: https://www.artillery.io/terms/privacy
+  title: Privacy Policy
+- type: Security
+  url: https://www.artillery.io/terms/security
+  title: Security Policy
+- type: StatusPage
+  url: https://artilleryio.statuspage.datadoghq.com/
+  title: Artillery Status
+- type: Deprecation
+  url: https://github.com/artilleryio/artillery/blob/main/SECURITY.md
+  title: Supported Versions Policy
+- type: Packages
+  url: packages/artillery-packages.yml
+  title: First-party packages
+- type: SDKs
+  url: packages/artillery-packages.yml
+  title: Artillery client libraries
+- type: CLI
+  url: cli/artillery-cli.yml
+  title: Artillery CLI surface
+- type: LLMsTxt
+  url: llms/artillery-llms.txt
+  title: llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+  title: Artillery official agent skills
+- type: Authentication
+  url: authentication/artillery-authentication.yml
+  title: Authentication profile
+- type: Conventions
+  url: conventions/artillery-conventions.yml
+  title: API conventions and reversibility
+- type: Lifecycle
+  url: lifecycle/artillery-lifecycle.yml
+  title: Lifecycle, versioning and support policy
+- type: ChangeLog
+  url: changelog/artillery-changelog.yml
+  title: Structured changelog
+- type: Conformance
+  url: conformance/artillery-conformance.yml
+  title: Standards conformance
+- type: VulnerabilityDisclosure
+  url: security/artillery-vulnerability-disclosure.yml
+  title: Vulnerability disclosure
+- type: TrustCenter
+  url: security/artillery-trust-center.yml
+  title: Security posture
+- type: Plans
+  url: plans/artillery-plans-pricing.yml
+  title: Plans and pricing
+- type: RateLimits
+  url: rate-limits/artillery-rate-limits.yml
+  title: Published usage limits
+- type: FinOps
+  url: finops/artillery-finops.yml
+  title: FinOps profile
 - type: Features
   data:
   - name: HTTP Load Testing
@@ -191,3 +270,8 @@ common:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-09-07'
+  status: enriched
+  artifacts_added: 15
+  pass: local-v3

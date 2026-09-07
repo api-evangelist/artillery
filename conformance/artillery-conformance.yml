@@ -1,0 +1,135 @@
+generated: '2026-09-07'
+method: searched
+source: >-
+  https://www.artillery.io/llms.txt, https://www.artillery.io/docs/observability/opentelemetry,
+  https://www.artillery.io/changelog, https://www.artillery.io/pricing,
+  https://github.com/artilleryio/agent-skills
+note: >-
+  IMPORTANT PROVENANCE CAVEAT — Artillery publishes no OpenAPI/AsyncAPI/GraphQL contract, so no
+  entry below is derived from a machine-readable spec. Every `conforms: true` is a documentation
+  or changelog claim by the provider, and `evidence_type` says so on each row. Nothing here was
+  inferred from a spec that does not exist.
+standards:
+- id: opentelemetry
+  conforms: true
+  evidence: >-
+    First-party OpenTelemetry support: traces and metrics exported via
+    artillery-plugin-publish-metrics; announced 2023-11-24 ("Introducing OpenTelemetry support")
+    and documented at /docs/observability/opentelemetry.
+  evidence_url: https://www.artillery.io/docs/observability/opentelemetry
+  evidence_type: documentation
+- id: w3c-trace-context
+  conforms: true
+  evidence: >-
+    CLI v2.0.31 (2026-04-24) added W3C Trace Context propagation on outgoing HTTP requests —
+    config.http.distributedTracing adds a `traceparent` header to each request so backend traces
+    correlate with the originating load test.
+  evidence_url: https://www.artillery.io/changelog
+  evidence_type: changelog
+- id: statsd
+  conforms: true
+  evidence: StatsD metrics export documented at /docs/observability/statsd.
+  evidence_url: https://www.artillery.io/docs/observability/statsd
+  evidence_type: documentation
+- id: prometheus
+  conforms: true
+  evidence: Prometheus metrics export documented at /docs/observability/prometheus.
+  evidence_url: https://www.artillery.io/docs/observability/prometheus
+  evidence_type: documentation
+- id: oidc
+  conforms: true
+  evidence: >-
+    Enterprise SSO over OIDC listed on the pricing page as an Enterprise add-on; self-service SSO
+    onboarding shipped 2026-07-29. Applies to Artillery Cloud dashboard sign-in, not to the API.
+  evidence_url: https://www.artillery.io/pricing
+  evidence_type: documentation
+- id: saml
+  conforms: true
+  evidence: Enterprise SSO over SAML listed on the pricing page as an Enterprise add-on.
+  evidence_url: https://www.artillery.io/pricing
+  evidence_type: documentation
+- id: scim
+  conforms: true
+  evidence: >-
+    Self-service SCIM provisioning onboarding for enterprise organizations, announced in the
+    changelog on 2026-07-29 (Settings -> SSO). SCIM version is not stated by the provider and is
+    deliberately not asserted here.
+  evidence_url: https://www.artillery.io/changelog
+  evidence_type: changelog
+- id: llms-txt
+  conforms: true
+  evidence: >-
+    A real llms.txt is served at https://www.artillery.io/llms.txt (HTTP 200, text/plain, 5,420
+    bytes) and is linked from the site footer. Every documentation page also has a .md twin.
+  evidence_url: https://www.artillery.io/llms.txt
+  evidence_type: probed
+- id: agent-skills
+  conforms: true
+  evidence: >-
+    artilleryio/agent-skills states its three published skills "follow the Agent Skills format
+    (agentskills.io) and use Tessl for automated linting & evaluation"; each SKILL.md carries the
+    format's frontmatter (name, description, compatibility, metadata, allowed-tools).
+  evidence_url: https://github.com/artilleryio/agent-skills
+  evidence_type: artifact
+- id: semver
+  conforms: true
+  evidence: CLI released on a semver 2.x line (current 2.0.34, 2026-08-14); npm dist-tags latest and canary.
+  evidence_url: https://www.artillery.io/changelog
+  evidence_type: documentation
+- id: mpl-2.0
+  conforms: true
+  evidence: >-
+    Artillery is licensed MPL-2.0 (LICENSE.txt, confirmed via the GitHub license API); a second
+    Business Source License file (LICENSE-BSL.txt) covers part of the monorepo.
+  evidence_url: https://github.com/artilleryio/artillery/blob/main/LICENSE.txt
+  evidence_type: artifact
+- id: oauth2
+  conforms: false
+  evidence: >-
+    Artillery Cloud authenticates with an opaque API key (a9_ prefix) passed via --key or
+    ARTILLERY_CLOUD_API_KEY. No OAuth 2.0 authorization server, no scopes, no token endpoint.
+  evidence_type: documentation
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    The observed Artillery Cloud error envelope is a bespoke shape,
+    {"error":{"data":{"message":...,"code":...,"type":...}}}, served as application/json — not
+    application/problem+json.
+  evidence_type: probed
+- id: openapi
+  conforms: false
+  evidence: >-
+    No OpenAPI/Swagger document is served on www.artillery.io or app.artillery.io. Twelve paths
+    were probed across both hosts on 2026-09-07 (see x-evidence); all returned 404, a 307 to
+    /login, or the app.artillery.io/api 401 auth wall.
+  evidence_type: probed
+- id: asyncapi
+  conforms: false
+  evidence: No event/streaming contract and no documented webhook surface for Artillery Cloud.
+  evidence_type: probed
+domain_standard:
+  market: performance testing and observability tooling
+  standards_probed: [opentelemetry, w3c-trace-context, otlp, statsd, prometheus]
+  declared: [opentelemetry, w3c-trace-context]
+  declared_in: documentation
+  contract_signature: false
+  note: >-
+    Artillery genuinely speaks its market's standard — a consumer already running OpenTelemetry
+    can wire Artillery's traces and metrics into an existing collector with no bespoke connector,
+    and W3C Trace Context lets a load test's requests be correlated inside the system under test.
+    But the declaration lives in documentation, not in a machine-readable contract, because
+    Artillery publishes none. Scored as a documentation claim, not a contract signature.
+protocol_support_note: >-
+  Artillery's HTTP/1, HTTP/2, WebSocket, Socket.IO, gRPC, HLS and SSE support describes protocols
+  the TOOL can generate load against. That is capability of the product, not conformance of
+  Artillery's own API surface, and is deliberately excluded from standards[] above.
+x-evidence:
+  fetched: '2026-09-07'
+  probes:
+  - {url: 'https://www.artillery.io/openapi.json', status: 404}
+  - {url: 'https://www.artillery.io/swagger.json', status: 404}
+  - {url: 'https://www.artillery.io/api-docs', status: 404}
+  - {url: 'https://app.artillery.io/openapi.json', status: 307}
+  - {url: 'https://app.artillery.io/api/openapi.json', status: 401}
+  - {url: 'https://app.artillery.io/api/graphql', status: 401}
+  - {url: 'https://www.artillery.io/llms.txt', status: 200}

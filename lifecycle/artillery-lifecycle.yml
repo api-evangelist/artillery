@@ -1,0 +1,64 @@
+generated: '2026-09-07'
+method: searched
+source: >-
+  https://www.artillery.io/changelog, https://github.com/artilleryio/artillery/blob/main/SECURITY.md,
+  https://github.com/artilleryio/artillery/releases, https://www.artillery.io/docs/get-started/get-artillery
+versioning:
+  scheme: semver
+  current: 2.0.34
+  current_released: '2026-08-14'
+  docs: https://www.artillery.io/changelog
+  note: >-
+    Artillery versions the CLI (the load-testing product) with semver on the 2.x line and ships
+    the Artillery Cloud dashboard continuously — the changelog is filtered by CLI / Dashboard /
+    VS Code Extension surfaces. The Artillery Cloud REST API at app.artillery.io/api carries no
+    published version scheme, because it carries no published contract at all.
+  channels:
+  - name: latest
+    install: npm install -g artillery@latest
+  - name: canary
+    install: npm install -g artillery@canary
+    note: A canary release is published on every commit to the GitHub repository.
+deprecation:
+  policy_url: https://github.com/artilleryio/artillery/blob/main/SECURITY.md
+  sunset_header: false
+  supported_versions:
+  - version: 2.x.x
+    supported: true
+  - version: 1.7.x
+    supported: false
+  - version: < 1.7
+    supported: false
+  note: >-
+    Artillery publishes a supported-versions table in SECURITY.md that states which major lines
+    still receive security updates — a real, dated support/EOL statement. It is not an HTTP
+    Deprecation/Sunset (RFC 8594) contract; no Artillery API response advertises those headers,
+    and the pipeline observed none. Deprecations are also announced in the changelog in prose,
+    e.g. `--dotenv` deprecated in favour of `--env-file` (CLI 2.0.34), and the retirement of
+    standalone plugin packages into the monorepo.
+  deprecated_packages:
+  - artillery-plugin-statsd (superseded by artillery-plugin-publish-metrics)
+  - artillery-core
+  - artillery-operator (Kubernetes operator, repo archived 2022)
+  - scalewright (repo archived 2025)
+sla:
+  url: https://www.artillery.io/pricing
+  uptime_target: null
+  note: >-
+    No public uptime SLA is published. The pricing page states support SLAs are an Enterprise
+    add-on starting at $1199/month, alongside SSO and audit logs; the SLA terms themselves are
+    not published.
+status_page: https://artilleryio.statuspage.datadoghq.com/
+status_page_provider: Datadog Status Pages
+status_page_evidence:
+  url: https://artilleryio.statuspage.datadoghq.com/
+  http_status: 200
+  discovered_at: https://www.artillery.io/ (site footer, "Status")
+deprecated_operations: []
+x-evidence:
+  fetched: '2026-09-07'
+  probes:
+  - {url: 'https://www.artillery.io/changelog', status: 200}
+  - {url: 'https://artilleryio.statuspage.datadoghq.com/', status: 200}
+  - {url: 'https://github.com/artilleryio/artillery/blob/main/SECURITY.md', status: 200}
+  - {url: 'https://github.com/artilleryio/artillery/blob/main/CHANGELOG.md', status: 404, note: 'the ReleaseNotes pointer previously in apis.yml was dead; replaced with /changelog'}

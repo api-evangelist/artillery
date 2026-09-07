@@ -4,90 +4,149 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Artillery
 providerId: artillery
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
+modified: '2026-09-07'
+generated: '2026-09-07'
+method: searched
+source: https://www.artillery.io/pricing
+note: >-
+  REPLACES a 2026-05-04 bulk-sweep scaffold that asserted 10/100/1000 requests-per-minute tiers,
+  X-RateLimit-* response headers and 429 semantics that Artillery has never published. NONE of
+  that was real. Artillery publishes NO HTTP rate limits, NO rate-limit response headers and NO
+  documented 429 behaviour for the Artillery Cloud API — that API is undocumented and returns 401
+  to every anonymous request. What Artillery DOES publish are plan-level usage quotas metered in
+  test reports, plus per-plan ceilings on distributed workers and test duration. Those are
+  recorded below as the real published limits.
 tags:
-  - Load Testing
-  - Performance Testing
-  - Open Source
-  - Testing
-  - DevOps
-  - Node.js
-  - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Artillery API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
+- Load Testing
+- Performance Testing
+- Quotas
+- Rate Limiting
+description: >-
+  Published Artillery Cloud usage limits. The metering unit is the test report, not the API
+  request. Concurrency ceilings are expressed as distributed workers per test and maximum test
+  duration.
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  limit: null
+  remaining: null
+  reset: null
+  retryAfter: null
+  policy: null
+  observed: []
+  note: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After headers were returned on a live anonymous
+    request to https://app.artillery.io/api (HTTP 401, application/json, 2026-09-07).
 responseCodes:
-  throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
+  throttled: null
+  quotaExceeded: null
+  serviceUnavailable: null
+  note: >-
+    Artillery publishes no status code for quota exhaustion. Its stated behaviour is degradation
+    and read-only mode, not a throttling response.
+limit_count: 12
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Artillery Cloud API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Artillery Cloud API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Artillery Cloud API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Artillery Cloud API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Artillery Cloud API
+- tier: free
+  name: Test volume
+  scope: per-account
+  metric: test_reports
+  limit: 30
+  timeFrame: month
+  applies: [Artillery Cloud]
+- tier: free
+  name: Distributed workers per test
+  scope: per-test
+  metric: workers
+  limit: 5
+  applies: [AWS Lambda, AWS Fargate, Azure ACI]
+- tier: free
+  name: Maximum test duration
+  scope: per-test
+  metric: minutes
+  limit: 30
+  applies: [Artillery CLI, Artillery Cloud]
+- tier: free
+  name: E2E test cases per report
+  scope: per-report
+  metric: cases
+  limit: 25
+  applies: [Playwright E2E testing]
+- tier: team
+  name: Test volume
+  scope: per-account
+  metric: test_reports
+  limit: 1000
+  timeFrame: month
+  applies: [Artillery Cloud]
+- tier: team
+  name: Distributed workers per test
+  scope: per-test
+  metric: workers
+  limit: 25
+  applies: [AWS Lambda, AWS Fargate, Azure ACI]
+- tier: team
+  name: Maximum test duration
+  scope: per-test
+  metric: hours
+  limit: 2
+  applies: [Artillery CLI, Artillery Cloud]
+- tier: team
+  name: E2E test cases per report
+  scope: per-report
+  metric: cases
+  limit: 50
+  applies: [Playwright E2E testing]
+- tier: business
+  name: Test volume
+  scope: per-account
+  metric: test_reports
+  limit: 2500
+  timeFrame: month
+  applies: [Artillery Cloud]
+- tier: business
+  name: Distributed workers per test
+  scope: per-test
+  metric: workers
+  limit: -1
+  note: no limit
+  applies: [AWS Lambda, AWS Fargate, Azure ACI]
+- tier: business
+  name: Maximum test duration
+  scope: per-test
+  metric: minutes
+  limit: -1
+  note: no limit
+  applies: [Artillery CLI, Artillery Cloud]
+- tier: business
+  name: E2E test cases per report
+  scope: per-report
+  metric: cases
+  limit: -1
+  note: no limit
+  applies: [Playwright E2E testing]
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+- name: What counts as a test report
+  description: >-
+    Each distinct load test or E2E test recorded to Artillery Cloud counts as one test report.
+    The limit includes reports from tests stopped early and reports that are later deleted.
+  source: https://www.artillery.io/pricing
+- name: Exceeding a limit
+  description: >-
+    Artillery Cloud continues working as normal if limits are exceeded sporadically. If limits
+    are exceeded continuously, service may be degraded to prioritize other users and the account
+    may be placed in read-only mode.
+  source: https://www.artillery.io/pricing
+- name: Spend and volume controls
+  description: Spend & volume controls are a Business-tier feature.
+  source: https://www.artillery.io/pricing
+- name: Data retention
+  description: >-
+    Reports and assets such as trace recordings are queryable for 1 month (Free), 6 months
+    (Team) or 18 months (Business); outside that window they can no longer be viewed or queried.
+  source: https://www.artillery.io/pricing
+x-evidence:
+  fetched: '2026-09-07'
+  probes:
+  - {url: 'https://www.artillery.io/pricing', status: 200}
+  - {url: 'https://app.artillery.io/api/openapi.json', status: 401, note: 'no rate-limit headers on the response'}
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
