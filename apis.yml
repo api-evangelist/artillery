@@ -47,7 +47,7 @@ x-docs-hosting: vercel
 tags:
 - Load Testing
 - Performance Testing
-- Open-Source
+- Open Source
 - Testing
 - DevOps
 - Node.js
@@ -58,6 +58,7 @@ tags_raw:
 - Testing
 - DevOps
 - Node.js
+- Open-Source
 created: '2026-03-25'
 modified: '2026-09-07'
 specificationVersion: '0.23'
