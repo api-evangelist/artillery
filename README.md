@@ -1,4 +1,4 @@
-# Artillery (artillery)
+# Artillery
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,75 +66,117 @@
 
 Artillery is an open source load testing and performance testing platform for APIs, microservices, and web applications. Built with Node.js and available as an npm package, Artillery supports HTTP/1, HTTP/2, WebSocket, Socket.IO, gRPC, and custom protocols through plugins. It includes a YAML-based test scenario definition language, a plugin ecosystem for extending functionality, and Artillery Cloud for distributed load testing, CI/CD integration, and centralized reporting. Artillery is used by developers, QA engineers, and SREs to run load tests, performance benchmarks, Playwright-based synthetic monitoring, and end-to-end tests at scale. The project is licensed under MPL-2.0 and maintained by Artilleryio.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/artillery/refs/heads/main/apis.yml)
+**Areas:** Load Testing · Performance Testing · Open Source · Testing · DevOps · Node.js
 
-**Run:** [Capabilities Using Naftiko](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=company-api-evangelist&utm_content=repo)
+## Artillery on APIs.io
 
-## Tags:
+Everything profiled for Artillery is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/artillery/](https://apis.io/providers/artillery/)** — or go straight to one of the APIs or properties below.
 
- - Load Testing, Performance Testing, Open Source, Testing, DevOps, Node.js
+### APIs (1)
 
-## Timestamps
+- [Artillery Cloud API](https://apis.io/apis/artillery/artillery-cloud-api/) — Artillery Cloud is the hosted platform behind the open source Artillery CLI: it runs distributed load and Playwright E2E tests at scale across AWS Lambda,…
 
-- **Created:** 2026-03-25
-- **Modified:** 2026-04-19
+### Published properties
 
-## APIs
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-### Artillery Cloud API
-Artillery Cloud provides a hosted platform for running distributed load tests at scale, storing test results, team collaboration, and integrating with CI/CD pipelines. The Artillery Cloud API enables programmatic triggering of test runs, retrieval of test results, and management of test configurations.
+#### Security (4)
 
-**Human URL:** [https://www.artillery.io/docs/reference/cli/run-test](https://www.artillery.io/docs/reference/cli/run-test)
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Tags:
+- [Artillery Authentication](https://apis.io/security/artillery/artillery-authentication/)
+- [Artillery Domain Security](https://apis.io/security/artillery/artillery-domain-security/)
+- [Artillery Trust Center](https://apis.io/security/artillery/artillery-trust-center/)
+- [Artillery Vulnerability Disclosure](https://apis.io/security/artillery/artillery-vulnerability-disclosure/)
 
- - Load Testing, Cloud, CI/CD, Performance
+#### Plans and pricing (1)
 
-#### Properties
+Published plans, tiers and prices.
 
-- [Documentation](https://www.artillery.io/docs/reference/cli/run-test)
-- [GettingStarted](https://www.artillery.io/docs/get-started/get-artillery)
+- [Artillery Plans Pricing](https://apis.io/plans/artillery/artillery-plans-pricing/)
 
-## Common Properties
+#### Rate limits (1)
 
-- [Artillery Website](https://www.artillery.io/)
+Published request limits.
+
+- [Artillery Rate Limits](https://apis.io/rate-limits/artillery/artillery-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Artillery Finops](https://apis.io/finops/artillery/artillery-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.artillery.io/)
 - [Documentation](https://www.artillery.io/docs)
-- [Artillery GitHub Organization](https://github.com/artilleryio)
-- [Artillery Source Repository](https://github.com/artilleryio/artillery)
-- [Changelog](https://github.com/artilleryio/artillery/blob/main/CHANGELOG.md)
+- [Getting started](https://www.artillery.io/docs/get-started/first-test)
+- [API reference](https://www.artillery.io/docs/reference/cli)
 - [Pricing](https://www.artillery.io/pricing)
+- [Sign up](https://app.artillery.io/login)
+- [Support](https://github.com/artilleryio/artillery/discussions)
+- [Changelog](https://www.artillery.io/changelog)
+- [Blog](https://www.artillery.io/blog)
+- [Security](https://www.artillery.io/terms/security)
+- [Terms of service](https://www.artillery.io/terms/tos)
+- [Privacy policy](https://www.artillery.io/terms/privacy)
+- [GitHub](https://github.com/artilleryio)
+- [Status](https://artilleryio.statuspage.datadoghq.com/)
 
-## Features
+## API Evangelist rating
 
-| Name | Description |
-|------|-------------|
-| HTTP Load Testing | Load test HTTP/1 and HTTP/2 REST APIs, GraphQL endpoints, and web applications with configurable virtual users, arrival rates, and scenario definitions. |
-| WebSocket and Socket.IO Testing | Test real-time applications with WebSocket and Socket.IO protocol support, enabling load testing of chat, notifications, and streaming applications. |
-| Playwright Integration | Run Playwright browser-based end-to-end scenarios under load, enabling realistic user simulation and synthetic monitoring from the same test framework. |
-| Plugin Ecosystem | Extensible plugin system with official plugins for gRPC, Kafka, AWS Lambda, Kinesis, and community plugins for many other protocols. |
-| Artillery Cloud | Hosted cloud platform for running distributed load tests at massive scale across multiple cloud regions, with centralized results and team collaboration features. |
-| YAML Test Scenarios | Human-readable YAML test scenario definitions supporting think time, loops, conditional logic, data CSV files, and custom JavaScript functions. |
+**Kin Score 56.1** — strong · rubric 0.25.0 · scored 2026-10-23
 
-## Use Cases
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 68.4 |
+| Developer ergonomics | 76.2 |
+| Access clarity | 71.1 |
 
-| Name | Description |
-|------|-------------|
-| API Load Testing | Backend developers and QA engineers run load tests against REST and GraphQL APIs to identify performance bottlenecks and ensure stability under expected traffic volumes. |
-| CI/CD Performance Gates | Engineering teams integrate Artillery into CI/CD pipelines to run performance tests on every pull request, failing builds that exceed latency or error rate thresholds. |
-| Synthetic Monitoring | SREs use Artillery with Playwright to run synthetic monitors that continuously validate critical user journeys from multiple cloud regions. |
-| Pre-Launch Stress Testing | Product teams run stress tests before major launches or sales events to identify the maximum capacity of their infrastructure. |
+**Agent readiness 11.5** — agent-aware
 
-## Integrations
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | yes |
+| Well Known Catalog | yes |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
 
-| Name | Description |
-|------|-------------|
-| GitHub Actions | Official Artillery GitHub Action for running load tests in CI/CD pipelines with automatic reporting and performance gate enforcement. |
-| Datadog | Artillery publishes metrics to Datadog for real-time monitoring and alerting during load test runs. |
-| AWS Lambda | Artillery can run distributed load tests using AWS Lambda as the execution backend, enabling serverless-scale testing. |
-| Playwright | Native Playwright integration for browser-based load testing and synthetic monitoring scenarios. |
+**Regulatory alignment 35.3** — Horizontal (data, software, accessibility, platform)
 
-## Maintainers
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/artillery/](https://apis.io/providers/artillery/).
 
-**FN:** Kin Lane
+## How this profile is made
 
-**Email:** kin@apievangelist.com
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Artillery: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/artillery/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
