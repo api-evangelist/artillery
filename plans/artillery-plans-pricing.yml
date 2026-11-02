@@ -1,0 +1,94 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-28'
+method: searched
+source: https://www.artillery.io/pricing
+sources:
+- https://www.artillery.io/pricing
+provenance:
+  tool: engine/economics/harvest_pricing.py
+  run: 20261028T141238
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: tiered-subscription
+delivery:
+  delivery: managed+licensed
+  method: page
+  read: '2026-10-28'
+  evidence: Deploy to your own AWS account (BYOC)
+  managed_tier: Team
+published: true
+note: Annual subscription saves 20%; BYOC AWS deployment and invoice billing via sales contact.
+plan_count: 4
+currency: USD
+plans:
+- name: Free
+  price_text: $ 0 / month
+  price: 0
+  currency: USD
+  period: month
+  included_quota: 30 reports/month, 1 month data retention, 2 team members, up to 5 workers per test,
+    test duration up to 30 minutes, 25 test cases per report
+- name: Team
+  price_text: $ 199 / month
+  price: 199
+  currency: USD
+  period: month
+  included_quota: 1000 reports/month, 6 months data retention, 8 team members, up to 25 workers per test,
+    test duration up to 2 hours, 50 test cases per report
+- name: Business
+  price_text: $ 499 / month
+  price: 499
+  currency: USD
+  period: month
+  included_quota: 2500 reports/month, 18 months data retention, no limit team members, no limit workers/duration/test
+    cases
+- name: Enterprise add-ons
+  price_text: starting at $1199/month
+  price: 1199
+  currency: USD
+  period: month
+  included_quota: Enterprise SSO (OIDC & SAML), audit logs, custom MSA, support SLAs
+rate_limit_statements:
+- up to 5 workers per test
+- up to 25 workers per test
+- Test duration up to 30 minutes
+- up to 2 hours
+- 30 reports/month
+- 1000 reports/month
+- 2500 reports/month
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - free
+  - subscription
+  units: []
+  plans:
+  - name: Free
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Team
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Business
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Enterprise add-ons
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - month
