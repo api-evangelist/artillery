@@ -17,6 +17,9 @@ artifacts:
   conventions/artillery-conventions.yml:
     method: searched
     evidence: declared in the artifact
+  deprecation/artillery-deprecation-policy.yml:
+    method: harvested
+    evidence: declared in the artifact
   finops/artillery-finops.yml:
     method: derived
     evidence: declared in the artifact
@@ -24,6 +27,12 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   heartbeat/2026-11-02.yml:
+    method: unknown
+    evidence: no authorship recorded
+  heartbeat/2026-11-06.yml:
+    method: unknown
+    evidence: no authorship recorded
+  heartbeat/2026-11-13.yml:
     method: unknown
     evidence: no authorship recorded
   integrations/_index.yml:
@@ -35,7 +44,7 @@ artifacts:
   kin/checks-2026-10-23T222754.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
-  kin/checks-2026-11-02T082323.yml:
+  kin/checks-2026-11-06T143934.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-23T000603.yml:
@@ -104,6 +113,9 @@ artifacts:
   kin/score-2026-11-02T082323.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-11-06T143934.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   lifecycle/artillery-lifecycle.yml:
     method: searched
     evidence: declared in the artifact
@@ -122,6 +134,9 @@ artifacts:
   plans/artillery-price-estimates.yml:
     method: unknown
     evidence: no authorship recorded
+  privacy/artillery-privacy-policy.yml:
+    method: harvested
+    evidence: declared in the artifact
   rate-limits/artillery-rate-limits.yml:
     method: searched
     evidence: declared in the artifact
@@ -146,6 +161,9 @@ artifacts:
   skills/artillery-setup-artillery-playwright-reporter.md:
     method: unknown
     evidence: no authorship recorded
+  terms/artillery-terms-of-service.yml:
+    method: harvested
+    evidence: declared in the artifact
   well-known/artillery-well-known.yml:
     method: unknown
     evidence: no authorship recorded
